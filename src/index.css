@@ -183,3 +183,30 @@ body {
 .message.error {
   color: #e50914;
 }
+
+/* 즐겨찾기 버튼 */
+.movie-card {
+  position: relative;
+}
+
+.favorite-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: rgba(0, 0, 0, 0.6);
+  border: none;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s, background 0.2s;
+}
+
+.favorite-btn:hover {
+  transform: scale(1.2);
+  background: rgba(0, 0, 0, 0.8);
+}

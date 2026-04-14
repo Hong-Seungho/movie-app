@@ -1,9 +1,10 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import type { Movie } from '../types/movie'
 import { searchMovies } from '../api/tmdb'
 import SearchBar from '../components/SearchBar'
 import MovieCard from '../components/MovieCard'
-import { useNavigate } from 'react-router-dom'
+import useFavorites from '../hooks/useFavorites'
 
 function HomePage() {
   // 검색창에 입력된 텍스트 상태
@@ -14,6 +15,11 @@ function HomePage() {
   const [loading, setLoading] = useState(false)
   // 에러 메시지 상태
   const [error, setError] = useState('')
+
+  // 페이지 이동 훅
+  const navigate = useNavigate()
+  // 즐겨찾기 훅 (추가/제거/확인 기능)
+  const { toggleFavorite, isFavorite } = useFavorites()
 
   // 검색 실행 함수
   const handleSearch = async () => {
@@ -34,8 +40,6 @@ function HomePage() {
     }
   }
 
-  const navigate = useNavigate()
-
   // 영화 카드 클릭 시 상세 페이지로 이동
   const handleMovieClick = (id: number) => {
     navigate(`/movie/${id}`)
@@ -44,6 +48,23 @@ function HomePage() {
   return (
     <div className="home-page">
       <h1>영화 검색</h1>
+      {/* 즐겨찾기 페이지로 이동 버튼 */}
+      <div style={{ textAlign: 'right', marginBottom: '1rem' }}>
+        <button
+          onClick={() => navigate('/favorites')}
+          style={{
+            background: 'transparent',
+            border: '1px solid #e50914',
+            color: '#e50914',
+            padding: '8px 16px',
+            borderRadius: '8px',
+            cursor: 'pointer',
+            fontSize: '0.9rem',
+          }}
+        >
+          ❤️ 즐겨찾기 목록
+        </button>
+      </div>
       <SearchBar
         query={query}
         onQueryChange={setQuery}
@@ -68,6 +89,8 @@ function HomePage() {
             key={movie.id}
             movie={movie}
             onClick={handleMovieClick}
+            onFavoriteToggle={toggleFavorite}
+            isFavorite={isFavorite(movie.id)}
           />
         ))}
       </div>
