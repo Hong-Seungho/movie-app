@@ -3,6 +3,7 @@ import type { Movie } from '../types/movie'
 import { searchMovies } from '../api/tmdb'
 import SearchBar from '../components/SearchBar'
 import MovieCard from '../components/MovieCard'
+import { useNavigate } from 'react-router-dom'
 
 function HomePage() {
   // 검색창에 입력된 텍스트 상태
@@ -33,9 +34,11 @@ function HomePage() {
     }
   }
 
-  // 영화 카드 클릭 시 실행 (나중에 상세 페이지로 이동)
+  const navigate = useNavigate()
+
+  // 영화 카드 클릭 시 상세 페이지로 이동
   const handleMovieClick = (id: number) => {
-    console.log('클릭한 영화 id:', id)
+    navigate(`/movie/${id}`)
   }
 
   return (

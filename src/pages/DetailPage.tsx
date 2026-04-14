@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import type { Movie } from '../types/movie'
 import { getMovieDetail, IMAGE_BASE_URL } from '../api/tmdb'
+import { useParams } from 'react-router-dom'
 
 function DetailPage() {
   // 영화 상세 데이터 상태
@@ -10,8 +11,9 @@ function DetailPage() {
   // 에러 메시지 상태
   const [error, setError] = useState('')
 
-  // 나중에 URL에서 영화 id를 받아올 예정 (임시로 550 사용)
-  const movieId = 550
+  // URL에서 영화 id를 읽어옴
+  const { id } = useParams()
+  const movieId = Number(id)
 
   // 컴포넌트가 처음 화면에 나타날 때 영화 정보 불러오기
   useEffect(() => {
