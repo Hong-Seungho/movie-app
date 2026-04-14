@@ -1,10 +1,11 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import type { Movie } from '../types/movie'
 import { searchMovies } from '../api/tmdb'
 import SearchBar from '../components/SearchBar'
 import MovieCard from '../components/MovieCard'
 import useFavorites from '../hooks/useFavorites'
+import useDebounce from '../hooks/useDebounce'
 
 function HomePage() {
   // 검색창에 입력된 텍스트 상태
@@ -15,13 +16,14 @@ function HomePage() {
   const [loading, setLoading] = useState(false)
   // 에러 메시지 상태
   const [error, setError] = useState('')
-
   // 페이지 이동 훅
   const navigate = useNavigate()
   // 즐겨찾기 훅 (추가/제거/확인 기능)
   const { toggleFavorite, isFavorite } = useFavorites()
-
+  // query가 변경되고 0.5초 후에 debouncedQuery가 업데이트됨
+  const debouncedQuery = useDebounce(query, 500)
   // 검색 실행 함수
+
   const handleSearch = async () => {
     // 검색어가 비어있으면 실행하지 않음
     if (!query.trim()) return
@@ -39,6 +41,13 @@ function HomePage() {
       setLoading(false)
     }
   }
+
+  // debouncedQuery가 바뀔 때마다 자동으로 검색 실행
+  useEffect(() => {
+    if (debouncedQuery.trim()) {
+      handleSearch()
+    }
+  }, [debouncedQuery])
 
   // 영화 카드 클릭 시 상세 페이지로 이동
   const handleMovieClick = (id: number) => {
