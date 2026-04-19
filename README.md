@@ -3,7 +3,7 @@
 TMDB API를 활용한 영화 검색 포트폴리오 프로젝트입니다.
 
 ## 🔗 링크
-- **라이브 데모**: 배포 후 추가 예정
+- **라이브 데모**: https://movie-app-teal-rho.vercel.app/
 - **TMDB API**: https://www.themoviedb.org
 
 ## ✨ 주요 기능
