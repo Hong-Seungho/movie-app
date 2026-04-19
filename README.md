@@ -20,6 +20,8 @@ TMDB API를 활용한 영화 검색 포트폴리오 프로젝트입니다.
 - **스타일링**: CSS
 
 ## 📁 프로젝트 구조
+
+```
 src
 ├── api
 │   └── tmdb.ts        # TMDB API 호출 함수
@@ -34,7 +36,8 @@ src
 │   ├── DetailPage.tsx # 영화 상세 페이지
 │   └── FavoritesPage.tsx # 즐겨찾기 페이지
 └── types
-└── movie.ts       # 영화 타입 정의
+    └── movie.ts       # 영화 타입 정의
+```
 
 ## 💡 기술적 고민
 - **debounce 적용**: 검색어 입력 시 API 호출 횟수를 줄이기 위해 0.5초 debounce 적용
