@@ -1,73 +1,61 @@
-# React + TypeScript + Vite
+# 🎬 영화 검색 앱
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+TMDB API를 활용한 영화 검색 포트폴리오 프로젝트입니다.
 
-Currently, two official plugins are available:
+## 🔗 링크
+- **라이브 데모**: 배포 후 추가 예정
+- **TMDB API**: https://www.themoviedb.org
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## ✨ 주요 기능
+- 영화 검색 (debounce 적용으로 자동 검색)
+- 영화 상세 정보 조회
+- 즐겨찾기 추가/제거 (localStorage 저장)
+- 즐겨찾기 목록 페이지
 
-## React Compiler
+## 🛠 기술 스택
+- **Frontend**: React, TypeScript
+- **Build Tool**: Vite
+- **Routing**: React Router DOM
+- **API**: TMDB API
+- **스타일링**: CSS
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 📁 프로젝트 구조
+src
+├── api
+│   └── tmdb.ts        # TMDB API 호출 함수
+├── components
+│   ├── MovieCard.tsx  # 영화 카드 컴포넌트
+│   └── SearchBar.tsx  # 검색창 컴포넌트
+├── hooks
+│   ├── useDebounce.ts # debounce 커스텀 훅
+│   └── useFavorites.ts # 즐겨찾기 커스텀 훅
+├── pages
+│   ├── HomePage.tsx   # 메인 검색 페이지
+│   ├── DetailPage.tsx # 영화 상세 페이지
+│   └── FavoritesPage.tsx # 즐겨찾기 페이지
+└── types
+└── movie.ts       # 영화 타입 정의
 
-## Expanding the ESLint configuration
+## 💡 기술적 고민
+- **debounce 적용**: 검색어 입력 시 API 호출 횟수를 줄이기 위해 0.5초 debounce 적용
+- **커스텀 훅 분리**: 즐겨찾기 로직을 `useFavorites` 훅으로 분리해 재사용성 향상
+- **TypeScript 활용**: TMDB API 응답 타입을 인터페이스로 정의해 타입 안정성 확보
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## 🚀 로컬 실행 방법
+1. 저장소 클론
+```bash
+   git clone https://github.com/Hong-Seungho/movie-app.git
 ```
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+2. 패키지 설치
+```bash
+   npm install
+```
+3. 환경변수 설정
+```bash
+   # .env 파일 생성 후 TMDB API 키 입력
+   VITE_TMDB_API_KEY=your_api_key
+```
+4. 개발 서버 실행
+```bash
+   npm run dev
 ```
